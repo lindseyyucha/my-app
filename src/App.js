@@ -41,7 +41,7 @@ function SpecialOffer() {
     <div>
       <h2>Special Offer</h2>
       {isSpecialOfferAvailable ? (
-        <p>Get 20% off on your next purchase!</p>
+        <p>Get 20% off on your next purchase on the featured movie!</p>
       ) : (
         <p>No special offer available at the moment.</p>
       )}
