@@ -1,71 +1,50 @@
 import logo from './logo.svg';
 import './App.css';
 
-const book = {
-  title: 'A Farewell to Arms',
-  author: 'Earnest Hemingway',
-  published: '1929',
-  image: 'https://upload.wikimedia.org/wikipedia/en/4/48/Hemingway_farewell.png',
-  width: '264',
-  height: '378'
-};
-
-// - Here we have an array of objects
-// - We might see this when we have multiple rows of results from our database or API
-const magazines = [
-  { id: 1, title: 'Architectural Digest', theme: 'architecture', isAvailable: true },
-  { id: 2, title: 'Dwell', theme: 'architecture', isAvailable: true },
-  { id: 3, title: 'Communication Arts', theme: 'design', isAvailable: false },
+const movies = [
+  { id: 1, title: 'Star Wars: Episode II - Attack of the Clones', director: 'George Lucas', year: '2002' },
+  { id: 2, title: 'The Crow', director: 'Alex Proyas', year: '1994' },
+  { id: 3, title: 'The Craft', director: 'Andrew Fleming', year: '1996' }
 ];
 
-// - This component displays the list of magazines
-// - Because we're reading and displaying multiple objects, we need to use the .map method
-// - magazines.map _maps_ each array item to the zine object until there are no more objects to map (it loops)
-// - We then display properties from zine object in each iteration
-function ZineRack() {
-  const listZines = magazines.map(zine =>
-    <li
-      key={zine.id}
-      style={{
-        color: zine.isAvailable ? 'red' : 'green'
-      }}
-    >
-      {zine.title}
+function MovieList() {
+  const listMovies = movies.map(movie => (
+    <li key={movie.id}>
+      {movie.title} ({movie.year}) - Directed by {movie.director}
     </li>
-  );
-  return (
-    <ul>{listZines}</ul>
-  )
-}
-
-function Bookshelf() {
+  ));
   return (
     <div>
-      {/* Components can't return multiple JSX tags unless they are wrapped in a parent element */}
-      {/* This is a JSX comment */}
-      <h2>{book.title} ({book.published})</h2>
-      <p>{book.author}</p>
-      {/* This a conditional that checks if an image exists before displaying it */}
-      {book.image &&
-      <img
-        className="bookCover"
-        src={book.image}
-        alt={book.title + ' cover'}
-        style={{
-          width: book.width,
-          height: book.height
-        }}
-      />
-      }
+      <h2>List of Movies</h2>
+      <ul>{listMovies}</ul>
     </div>
   );
 }
 
-function MagicButton(){
-  return(
+
+function FeaturedItem() {
+  const featuredMovie = movies[0];
+
+  return (
     <div>
-      <h3>This is a magic button</h3>
-      <button>Magic</button>
+      <h2>Featured Movie</h2>
+      <p>{featuredMovie.title} ({featuredMovie.year}) - Directed by {featuredMovie.director}</p>
+    </div>
+  );
+}
+
+
+function SpecialOffer() {
+  const isSpecialOfferAvailable = parseInt(movies[0].year) > 1994;
+
+  return (
+    <div>
+      <h2>Special Offer</h2>
+      {isSpecialOfferAvailable ? (
+        <p>Get 20% off on your next purchase!</p>
+      ) : (
+        <p>No special offer available at the moment.</p>
+      )}
     </div>
   );
 }
@@ -74,8 +53,9 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <ZineRack />
-      <Bookshelf />
+        <MovieList />
+        <FeaturedItem />
+        <SpecialOffer />
       </header>
     </div>
   );
